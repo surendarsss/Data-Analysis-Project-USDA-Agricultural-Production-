@@ -73,7 +73,6 @@ As a Data Scientist, the focus is not only on running queries but also on **extr
 ### 10: Average Coffee Production for Years Where Honey Production > 1M
 ![Coffee Avg Honey](visuals/coffee_avg_honey.png)
 
-> Place all screenshots in the `visuals/` folder. Name files clearly (e.g., `milk_2023.png`, `coffee_trends.png`, `honey_2022.png`).
 
 ---
 
@@ -106,7 +105,7 @@ As a Data Scientist, the focus is not only on running queries but also on **extr
 
 ## Author ✍️
 **Surendar S**  
-Data Analysis & SQL Enthusiast  
+Phone:7010861982
 Email: surendarpc936@gmail.com  
 
 ---
