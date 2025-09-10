@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USDA Data Science Assessment</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2E7D32 0%, #66BB6A 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1B5E20, #2E7D32);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .author-name {
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+
+        .github-link {
+            color: #E8F5E8;
+            text-decoration: none;
+            padding: 8px 15px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .github-link:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+        .scenario {
+            background: #E8F5E8;
+            padding: 25px;
+            margin: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #4CAF50;
+        }
+
+        .scenario h3 {
+            color: #2E7D32;
+            margin-bottom: 15px;
+        }
+
+        .questions-container {
+            padding: 20px;
+        }
+
+        .question {
+            background: white;
+            border: 2px solid #E0E0E0;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .question:hover {
+            border-color: #4CAF50;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.1);
+        }
+
+        .question.correct {
+            border-color: #4CAF50;
+            background: #F1F8E9;
+        }
+
+        .question.incorrect {
+            border-color: #F44336;
+            background: #FFEBEE;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .question-number {
+            background: #2E7D32;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .status-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .status-icon.correct {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .status-icon.incorrect {
+            background: #F44336;
+            color: white;
+        }
+
+        .question-text {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .answer-input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .answer-input:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        .check-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .check-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .sql-input {
+            width: 100%;
+            min-height: 100px;
+            padding: 12px;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            resize: vertical;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            background: #E0E0E0;
+            height: 10px;
+            border-radius: 5px;
+            margin: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #4CAF50, #66BB6A);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .score-display {
+            text-align: center;
+            padding: 20px;
+            font-size: 1.5em;
+            color: #2E7D32;
+            font-weight: bold;
+        }
+
+        .submit-all {
+            background: #FF5722;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+            transition: all 0.3s ease;
+        }
+
+        .submit-all:hover {
+            background: #E64A19;
+            transform: scale(1.05);
+        }
+
+        .feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .feedback.correct {
+            background: #DFF2BF;
+            color: #4F8A10;
+            border: 1px solid #4F8A10;
+        }
+
+        .feedback.incorrect {
+            background: #FFBABA;
+            color: #D8000C;
+            border: 1px solid #D8000C;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌾 USDA Data Science Assessment</h1>
+            <p>Agricultural Commodity Production Analysis</p>
+            <div class="author-info">
+                <div class="author-name">Surendar</div>
+                <a href="https://github.com/surendarsss/Data-Analysis-Project-USDA-Agricultural-Production-" class="github-link" target="_blank">
+                    📁 GitHub Repository - Data Available
+                </a>
+            </div>
+        </div>
+
+        <div class="scenario">
+            <h3>📊 Scenario: Data Scientist at USDA</h3>
+            <p><strong>Context:</strong> You are a Data Scientist working at the USDA. Your department has been tracking the production of various agricultural commodities across different states.</p>
+            <p><strong>Datasets:</strong> milk_production, cheese_production, coffee_production, honey_production, yogurt_production, and a state_lookup table.</p>
+            <p><strong>Note:</strong> All answer entries are numeric and only numbers and periods. No commas accepted.</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="score-display" id="scoreDisplay">Score: 0/10</div>
+
+        <div class="questions-container" id="questionsContainer">
+            <!-- Questions will be loaded here -->
+        </div>
+
+        <button class="submit-all" onclick="checkAllAnswers()">🎯 Check All Answers</button>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                id: 1,
+                text: "Can you find out the total milk production for 2023? Your manager wants this information for the yearly report. What is the total milk production for 2023?",
+                answer: "91812000000",
+                type: "numeric"
+            },
+            {
+                id: 2,
+                text: "Which states had cheese production greater than 100 million in April 2023? The Cheese Department wants to focus their marketing efforts there. How many states are there?",
+                answer: "6" ,
+                alternate_answer: "55",
+                answer: ["6", "27"],
+                type: "numeric"
+            },
+            {
+                id: 3,
+                text: "Your manager wants to know how coffee production has changed over the years. What is the total value of coffee production for 2011?",
+                answer: "76000000",
+                type: "numeric"
+            },
+            {
+                id: 4,
+                text: "There's a meeting with the Honey Council next week. Find the average honey production for 2022 so you're prepared.",
+                answer: "3133275",
+                type: "numeric"
+            },
+            {
+                id: 5,
+                text: "The State Relations team wants a list of all states names with their corresponding ANSI codes. Can you generate that list? What is the State_ANSI code for Florida?",
+                answer: "12",
+                type: "numeric"
+            },
+            {
+                id: 6,
+                text: "For a cross-commodity report, can you list all states with their cheese production values, even if they didn't produce any cheese in April of 2023? What is the total for NEW JERSEY?",
+                answer: "34",
+                type: "numeric"
+            },
+            {
+                id: 7,
+                text: "Can you find the total yogurt production for states in the year 2022 which also have cheese production data from 2023? This will help the Dairy Division in their planning.",
+                answer: "4684380000",
+                type: "numeric"
+            },
+            {
+                id: 8,
+                text: "List all states from state_lookup that are missing from milk_production in 2023. How many states are there?",
+                answer: "0",
+                type: "numeric"
+            },
+            {
+                id: 9,
+                text: "List all states with their cheese production values, including states that didn't produce any cheese in April 2023. Did Delaware produce any cheese in April 2023?",
+                answer: "No",
+                type: "yesno"
+            },
+            {
+                id: 10,
+                text: "Find the average coffee production for all years where the honey production exceeded 1 million.",
+                answer: "6426666.666666667",
+                type: "numeric"
+            }
+        ];
+
+        let correctAnswers = 0;
+
+        function loadQuestions() {
+            const container = document.getElementById('questionsContainer');
+            
+            questions.forEach(question => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                questionDiv.id = `question-${question.id}`;
+                
+                let inputField = '';
+                if (question.type === 'yesno') {
+                    inputField = `
+                        <select class="answer-input" id="answer-${question.id}">
+                            <option value="">Select Answer</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    `;
+                } else {
+                    inputField = `<input type="text" class="answer-input" id="answer-${question.id}" placeholder="Enter your answer">`;
+                }
+                
+                questionDiv.innerHTML = `
+                    <div class="question-header">
+                        <div class="question-number">Question ${question.id}</div>
+                        <div class="status-icon" id="status-${question.id}"></div>
+                    </div>
+                    <div class="question-text">${question.text}</div>
+                    <textarea class="sql-input" placeholder="Enter your SQL query here (optional for reference)"></textarea>
+                    <div class="input-group">
+                        ${inputField}
+                        <button class="check-btn" onclick="checkAnswer(${question.id})">Check</button>
+                    </div>
+                    <div class="feedback" id="feedback-${question.id}" style="display: none;"></div>
+                `;
+                
+                container.appendChild(questionDiv);
+            });
+        }
+
+        function checkAnswer(questionId) {
+            const question = questions.find(q => q.id === questionId);
+            const userAnswer = document.getElementById(`answer-${questionId}`).value.trim();
+            const questionDiv = document.getElementById(`question-${questionId}`);
+            const statusIcon = document.getElementById(`status-${questionId}`);
+            const feedback = document.getElementById(`feedback-${questionId}`);
+            
+            let isCorrect = false;
+            
+            if (question.type === 'numeric') {
+                // Remove any commas and check numeric equality
+                const cleanUserAnswer = userAnswer.replace(/,/g, '');
+                const cleanCorrectAnswer = question.answer.replace(/,/g, '');
+                isCorrect = parseFloat(cleanUserAnswer) === parseFloat(cleanCorrectAnswer);
+            } else if (question.type === 'yesno') {
+                isCorrect = userAnswer.toLowerCase() === question.answer.toLowerCase();
+            }
+            
+            if (isCorrect) {
+                questionDiv.className = 'question correct';
+                statusIcon.className = 'status-icon correct';
+                statusIcon.innerHTML = '✓';
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = '✅ Correct! Well done.';
+                feedback.style.display = 'block';
+            } else {
+                questionDiv.className = 'question incorrect';
+                statusIcon.className = 'status-icon incorrect';
+                statusIcon.innerHTML = '✗';
+                feedback.className = 'feedback incorrect';
+                feedback.innerHTML = `❌ Incorrect. Expected answer: ${question.answer}`;
+                feedback.style.display = 'block';
+            }
+            
+            updateScore();
+        }
+
+        function checkAllAnswers() {
+            questions.forEach(question => {
+                checkAnswer(question.id);
+            });
+            
+            if (correctAnswers === questions.length) {
+                alert('🎉 Congratulations! You got all answers correct! Excellent work on your USDA Data Science Assessment!');
+            } else {
+                alert(`📊 Assessment Complete! You scored ${correctAnswers}/${questions.length}. Review the incorrect answers and try again to improve your score.`);
+            }
+        }
+
+        function updateScore() {
+            correctAnswers = 0;
+            questions.forEach(question => {
+                const questionDiv = document.getElementById(`question-${question.id}`);
+                if (questionDiv.classList.contains('correct')) {
+                    correctAnswers++;
+                }
+            });
+            
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            const progressFill = document.getElementById('progressFill');
+            
+            scoreDisplay.textContent = `Score: ${correctAnswers}/${questions.length}`;
+            progressFill.style.width = `${(correctAnswers / questions.length) * 100}%`;
+        }
+
+        // Load questions when page loads
+        window.onload = function() {
+            loadQuestions();
+        };
+    </script>
+</body>
+</html>
