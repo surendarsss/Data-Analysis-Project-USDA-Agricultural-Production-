@@ -44,34 +44,34 @@ As a Data Scientist, the focus is not only on running queries but also on **extr
 ## Our Analysis 📸
 
 ### 1: Total Milk Production (2023)
-![Milk Production](visuals/milk_2023.png)
+![Milk Production](visuals/milk_2023.jpg)
 
 ### 2: States with Cheese Production > 100M in April 2023
-![Cheese Production](visuals/cheese_april2023.png)
+![Cheese Production](visuals/cheese_april2023.jpg)
 
 ### 3: Coffee Production Trends
-![Coffee Trends](visuals/coffee_trends.png)
+![Coffee Trends](visuals/coffee_trends.jpg)
 
 ### 4: Average Honey Production (2022)
-![Honey Production](visuals/honey_2022.png)
+![Honey Production](visuals/honey_2022.jpg)
 
 ### 5: State ANSI Codes (e.g., Florida)
-![State ANSI Codes](visuals/state_ansi.png)
+![State ANSI Codes](visuals/state_ansi.jpg)
 
 ### 6: Cheese Production Including Zero-Production States (April 2023)
-![Cheese Zero Production](visuals/cheese_zero_april2023.png)
+![Cheese Zero Production](visuals/cheese_zero_april2023.jpg)
 
 ### 7: Total Yogurt Production (2022) for States with Cheese Data (2023)
-![Yogurt Production](visuals/yogurt_2022.png)
+![Yogurt Production](visuals/yogurt_2022.jpg)
 
 ### 8: States Missing Milk Production in 2023
-![Missing Milk States](visuals/missing_milk_2023.png)
+![Missing Milk States](visuals/missing_milk_2023.jpg)
 
 ### 9: Delaware Cheese Production (April 2023)
-![Delaware Cheese](visuals/delaware_cheese.png)
+![Delaware Cheese](visuals/delaware_cheese.jpg)
 
 ### 10: Average Coffee Production for Years Where Honey Production > 1M
-![Coffee Avg Honey](visuals/coffee_avg_honey.png)
+![Coffee Avg Honey](visuals/coffee_avg_honey.jpg)
 
 
 ---
